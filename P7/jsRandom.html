@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tabel 3x3</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			margin: 20px;
+            object-position: 50% 50%;
+		}
+
+		table td {
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			border: 1px solid black;
+			cursor: pointer;
+		}
+
+		button {
+			margin: 20px 20px 20px 60px;
+			padding: 10px;
+			font-size: 16px;
+			background-color: #000000;
+			color: white;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+            object-position: 50% 50%;
+		}
+
+	</style>
+</head>
+<body>
+	<table id="myTable">
+		<tr>
+			<td id="cell-0-0"></td>
+			<td id="cell-0-1"></td>
+			<td id="cell-0-2"></td>
+		</tr>
+		<tr>
+			<td id="cell-1-0"></td>
+			<td id="cell-1-1"></td>
+			<td id="cell-1-2"></td>
+		</tr>
+		<tr>
+			<td id="cell-2-0"></td>
+			<td id="cell-2-1"></td>
+			<td id="cell-2-2"></td>
+		</tr>
+	</table>
+
+	<button onclick="sumTable()">Hitung</button>
+
+	<script>
+		function generateRandomNumber() {
+			return Math.floor(Math.random() * 9);
+		}
+
+		function updateCellValue(row, col) {
+			let cell = document.getElementById(`cell-${row}-${col}`);
+			cell.innerHTML = generateRandomNumber();
+		}
+
+		function initTable() {
+			for (let row = 0; row < 3; row++) {
+				for (let col = 0; col < 3; col++) {
+					updateCellValue(row, col);
+				}
+			}
+		}
+
+		function sumTable() {
+			let sum = 0;
+			for (let row = 0; row < 3; row++) {
+				for (let col = 0; col < 3; col++) {
+					let cell = document.getElementById(`cell-${row}-${col}`);
+					sum += parseInt(cell.innerHTML);
+				}
+			}
+			alert(`Penjumlahan angka dalam tabel adalah ${sum}`);
+		}
+
+		window.onload = initTable;
+
+		let cells = document.querySelectorAll('td');
+		for (let cell of cells) {
+			cell.addEventListener('click', function() {
+				let row = this.parentNode.rowIndex;
+				let col = this.cellIndex;
+				updateCellValue(row, col);
+			});
+		}
+	</script>
+</body>
+</html>
